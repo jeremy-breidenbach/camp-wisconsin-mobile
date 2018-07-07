@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 
 class CampgroundDetails extends Component {
@@ -21,26 +21,47 @@ class CampgroundDetails extends Component {
         const campgroundId = navigation.getParam('campgroundId');
 
         return (
-            <View>
-                <Text h2>{navigation.getParam('campgroundName', '')}</Text>
-                <Text>{navigation.getParam('campgroundDescription', '')}</Text>
-                <View>
-                    <Text>{navigation.getParam('campgroundAddress', '')}</Text>
-                    <Text>{navigation.getParam('campgroundCity', '')}</Text>
-                    <Text>{navigation.getParam('campgroundState', '')}</Text>
-                    <Text>{navigation.getParam('campgroundZip', '')}</Text>
-                </View>
-                <View>
-                    <Button 
-                        title='View Campsites' 
-                        onPress={() => navigation.navigate('Campsites', {
-                            campgroundId
-                        })}
-                    />
-                </View>
+            <View style={{ flex: 1, paddingBottom: 20 }}>
+                <ScrollView>
+                    <Text h2 style={styles.campgroundName}>{navigation.getParam('campgroundName', '')}</Text>
+                    <Text style={styles.campgroundDescription}>{navigation.getParam('campgroundDescription', '')}</Text>
+                    <View style={styles.campgroundAddress}>
+                        <Text h3>Address</Text>
+                        <Text>{navigation.getParam('campgroundAddress', '')}</Text>
+                        <Text>{navigation.getParam('campgroundCity', '')}, {navigation.getParam('campgroundState', '')} {navigation.getParam('campgroundZip', '')}</Text>
+                    </View>
+                    <View style={styles.campsitesButton}>
+                        <Button 
+                            title='View Campsites' 
+                            onPress={() => navigation.navigate('Campsites', {
+                                campgroundId
+                            })}
+                        />
+                    </View>
+                </ScrollView>
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    campgroundName: {
+        marginTop: 10,
+        marginLeft: 20
+    },
+    campgroundDescription: {
+        marginTop: 10,
+        marginLeft: 20,
+        marginRight: 20,
+        color: '#333333'
+    },
+    campgroundAddress: {
+        marginTop: 10,
+        marginLeft: 20
+    },
+    campsitesButton: {
+        marginTop: 20
+    }
+});
 
 export default CampgroundDetails;
