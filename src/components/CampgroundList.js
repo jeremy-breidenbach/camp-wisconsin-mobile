@@ -59,7 +59,8 @@ class CampgroundList extends Component {
                                 campgroundAddress: item.address,
                                 campgroundCity: item.city,
                                 campgroundState: item.state,
-                                campgroundZip: item.zip
+                                campgroundZip: item.zip,
+                                campgroundAmenities: item.amenities
                             })} 
                         />}           
                 keyExtractor={item => item.facilityID}

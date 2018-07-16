@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
-import { Text, Button } from 'react-native-elements';
+import { List, ListItem, Text, Button, Card } from 'react-native-elements';
 
 class CampgroundDetails extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -12,8 +12,20 @@ class CampgroundDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: false
+            isLoading: false,
+            amenitiesWithinFacility: []
         };
+    }
+
+    componentDidMount() {
+        this.parseAmenities(this.props.navigation.getParam('campgroundAmenities'));
+    }
+
+    parseAmenities(amenitiesJsonString) {
+        const amenitiesArray = JSON.parse(amenitiesJsonString);
+        this.setState({
+            amenitiesWithinFacility: amenitiesArray.filter(amenity => amenity.distance === 'Within Facility')
+        });
     }
 
     render() {
@@ -37,6 +49,20 @@ class CampgroundDetails extends Component {
                                 campgroundId
                             })}
                         />
+                    </View>
+                    <View>
+                        <Card title='Amenities'>
+                            <List>
+                                {
+                                    this.state.amenitiesWithinFacility.map((l, i) => (
+                                        <ListItem 
+                                            key={i}
+                                            title={l.name}
+                                        />
+                                    ))
+                                }
+                            </List>
+                        </Card>
                     </View>
                 </ScrollView>
             </View>
