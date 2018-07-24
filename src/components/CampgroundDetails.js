@@ -89,7 +89,7 @@ class CampgroundDetails extends Component {
                     <View>
                         <Card title='Amenities'>
                             <SectionList 
-                                renderItem={({item, index, section}) => <ListItem key={index} title={item} hideChevron />}
+                                renderItem={({ item, index, section }) => <ListItem key={index} title={item} hideChevron />}
                                 renderSectionHeader={({ section: { title } }) => (<Text style={{ fontWeight: 'bold' }}>{title}</Text>)}
                                 sections={this.state.amenitiesListSections}
                                 keyExtractor={(item, index) => index}
